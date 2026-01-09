@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Marketing Templates - AutoFlow</title>
+</head>
+<body>
+<!--
+    EMAIL MARKETING AUTOMATION TEMPLATES
+    Use these templates with your email service provider (SendGrid, Mailgun, ConvertKit, etc.)
+-->
+
+<!--
+    TEMPLATE 1: WELCOME EMAIL (Send immediately after signup)
+    Subject: Welcome to AutoFlow! Let's get you started 🎉
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;">
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; text-align: center; color: white;">
+        <h1 style="margin: 0; font-size: 2rem;">Welcome to AutoFlow!</h1>
+    </div>
+
+    <div style="padding: 40px; background: white;">
+        <p style="font-size: 1.1rem; line-height: 1.6;">Hi {{name}},</p>
+
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Welcome aboard! You've just started your <strong>14-day free trial</strong> of AutoFlow.
+            We're excited to help you track and grow your business revenue!
+        </p>
+
+        <h2 style="color: #667eea; margin-top: 30px;">Here's how to get started:</h2>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>1. Connect your first income source</strong> (Stripe, PayPal, etc.)</p>
+            <p style="margin: 10px 0;"><strong>2. Set your monthly revenue goal</strong></p>
+            <p style="margin: 10px 0;"><strong>3. Enable smart automation</strong> to save time</p>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="{{dashboard_url}}" style="display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem;">Access Your Dashboard</a>
+        </div>
+
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Need help? Just reply to this email and I'll personally assist you.
+        </p>
+
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            To your success,<br>
+            <strong>The AutoFlow Team</strong>
+        </p>
+    </div>
+
+    <div style="padding: 20px; background: #f8f9fa; text-align: center; color: #666; font-size: 0.9rem;">
+        <p>You're receiving this because you signed up for AutoFlow.</p>
+        <p><a href="{{unsubscribe_url}}" style="color: #667eea;">Unsubscribe</a></p>
+    </div>
+</div>
+
+<!--
+    TEMPLATE 2: DAY 3 - ONBOARDING TIP
+    Subject: Quick tip: Connect Stripe in 2 minutes ⚡
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; padding: 40px; background: white;">
+    <h2 style="color: #667eea;">Hi {{name}},</h2>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        I noticed you haven't connected your Stripe account yet. It literally takes 2 minutes and
+        you'll instantly see all your revenue data in one place!
+    </p>
+
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #4caf50;">
+        <p style="margin: 0; font-weight: bold;">💡 Pro Tip:</p>
+        <p style="margin: 10px 0 0 0;">Users who connect their first integration within 3 days are 5x more likely to hit their revenue goals!</p>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{{integration_url}}" style="display: inline-block; padding: 15px 35px; background: #4caf50; color: white; text-decoration: none; border-radius: 10px; font-weight: bold;">Connect Stripe Now</a>
+    </div>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        Cheers,<br>
+        The AutoFlow Team
+    </p>
+</div>
+
+<!--
+    TEMPLATE 3: DAY 7 - TRIAL MIDPOINT
+    Subject: You're halfway through your trial - here's what's next
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; padding: 40px; background: white;">
+    <h2 style="color: #667eea;">Hi {{name}},</h2>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        You're 7 days into your trial! How's it going so far?
+    </p>
+
+    <div style="text-align: center; margin: 30px 0; padding: 30px; background: #f8f9fa; border-radius: 10px;">
+        <p style="font-size: 0.9rem; color: #666; margin: 0;">Your Revenue This Week</p>
+        <p style="font-size: 3rem; font-weight: bold; color: #667eea; margin: 10px 0;">{{weekly_revenue}}</p>
+        <p style="font-size: 1.1rem; color: #4caf50; margin: 0;">+{{growth_percent}}% from last week</p>
+    </div>
+
+    <h3 style="color: #333;">Make the most of your remaining trial:</h3>
+    <ul style="font-size: 1.1rem; line-height: 1.8;">
+        <li>Enable AI insights for personalized recommendations</li>
+        <li>Set up automation rules to save 5+ hours per week</li>
+        <li>Invite your team members (free on all plans)</li>
+    </ul>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        Questions? Book a free 15-min call with our team: <a href="{{calendar_url}}" style="color: #667eea;">Schedule Call</a>
+    </p>
+</div>
+
+<!--
+    TEMPLATE 4: DAY 12 - PRE-TRIAL END
+    Subject: Your trial ends in 2 days - Lock in your discount! 🎁
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; padding: 40px; background: white;">
+    <h2 style="color: #667eea;">Hi {{name}},</h2>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        Your free trial ends in <strong>2 days</strong>. We hope you've enjoyed using AutoFlow!
+    </p>
+
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; text-align: center; color: white; margin: 30px 0;">
+        <p style="font-size: 1.3rem; margin: 0;"><strong>🎁 SPECIAL TRIAL OFFER</strong></p>
+        <p style="font-size: 2.5rem; font-weight: bold; margin: 15px 0;">Save 25%</p>
+        <p style="font-size: 1.1rem; margin: 0;">Upgrade now and get 25% off your first 3 months</p>
+        <p style="font-size: 0.9rem; opacity: 0.9; margin: 10px 0 0 0;">Use code: TRIAL25</p>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{{upgrade_url}}" style="display: inline-block; padding: 18px 40px; background: #ff6b6b; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem;">Claim Your Discount</a>
+    </div>
+
+    <p style="font-size: 0.9rem; color: #666; text-align: center;">
+        This offer expires when your trial ends in 2 days
+    </p>
+</div>
+
+<!--
+    TEMPLATE 5: UPSELL - UPGRADE TO HIGHER TIER
+    Subject: You're ready for the Growth plan 🚀
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; padding: 40px; background: white;">
+    <h2 style="color: #667eea;">Congratulations {{name}}! 🎉</h2>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        You've been crushing it! Your revenue has grown to <strong>{{current_revenue}}/month</strong>.
+    </p>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        You're approaching the limit of your Starter plan ($10k/month). Time to level up!
+    </p>
+
+    <div style="border: 3px solid #667eea; padding: 30px; border-radius: 15px; margin: 30px 0;">
+        <h3 style="color: #667eea; margin-top: 0;">Upgrade to Growth Plan</h3>
+        <ul style="font-size: 1.1rem; line-height: 1.8;">
+            <li><strong>Track up to $50k/month</strong> in revenue</li>
+            <li>Unlimited integrations</li>
+            <li>Advanced AI insights</li>
+            <li>Smart automation (save 10+ hours/week)</li>
+            <li>Priority support</li>
+        </ul>
+        <p style="font-size: 1.3rem; font-weight: bold; color: #667eea;">Just $99/month</p>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{{upgrade_url}}" style="display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem;">Upgrade Now</a>
+    </div>
+</div>
+
+<!--
+    TEMPLATE 6: WIN-BACK - CANCELED SUBSCRIPTION
+    Subject: We miss you! Here's 50% off to come back
+-->
+<div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; padding: 40px; background: white;">
+    <h2 style="color: #667eea;">Hi {{name}},</h2>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        We noticed you canceled your AutoFlow subscription. We're sorry to see you go!
+    </p>
+
+    <p style="font-size: 1.1rem; line-height: 1.6;">
+        Can you help us improve by letting us know why you left?
+        <a href="{{feedback_url}}" style="color: #667eea;">Share Feedback</a>
+    </p>
+
+    <div style="background: #fff3cd; padding: 30px; border-radius: 15px; text-align: center; margin: 30px 0; border: 2px solid #ffc107;">
+        <p style="font-size: 1.3rem; font-weight: bold; color: #333; margin: 0;">Limited Time Offer</p>
+        <p style="font-size: 2rem; font-weight: bold; color: #667eea; margin: 15px 0;">50% OFF</p>
+        <p style="font-size: 1.1rem; color: #333; margin: 0;">Come back and get 50% off for 6 months</p>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{{reactivate_url}}" style="display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem;">Reactivate Subscription</a>
+    </div>
+
+    <p style="font-size: 0.9rem; color: #666; text-align: center;">
+        This exclusive offer expires in 7 days
+    </p>
+</div>
+
+<!--
+    AUTOMATION SEQUENCE OVERVIEW:
+
+    DAY 0: Welcome email (Template 1)
+    DAY 3: Onboarding tip - Connect integration (Template 2)
+    DAY 7: Trial midpoint check-in (Template 3)
+    DAY 12: Pre-trial end offer (Template 4)
+
+    TRIGGERED EMAILS:
+    - When user hits 80% of plan limit: Upsell email (Template 5)
+    - 7 days after cancellation: Win-back offer (Template 6)
+
+    INTEGRATION INSTRUCTIONS:
+    1. Set up your email service provider (SendGrid, Mailgun, ConvertKit, Mailchimp)
+    2. Create automated workflows using these templates
+    3. Replace {{variables}} with actual user data from your database
+    4. Track email opens, clicks, and conversions
+    5. A/B test subject lines and CTAs
+    6. Optimize based on conversion data
+-->
+
+</body>
+</html>

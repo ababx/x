@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AutoFlow</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .welcome-banner {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .welcome-banner h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .stat-card .stat-change {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .stat-change.positive {
+            color: #4caf50;
+        }
+
+        .stat-change.negative {
+            color: #f44336;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-container h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .integrations {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .integrations h3 {
+            margin-bottom: 20px;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .integration-card {
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .integration-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .integration-card.connected {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .integration-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .tasks-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .task {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task:last-child {
+            border-bottom: none;
+        }
+
+        .onboarding-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .onboarding-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>AutoFlow Dashboard</h1>
+        <div class="user-info">
+            <span id="user-email">user@example.com</span>
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Onboarding Modal -->
+    <div class="onboarding-modal" id="onboarding-modal">
+        <div class="modal-content">
+            <h2>🎉 Welcome to AutoFlow!</h2>
+            <p style="font-size: 1.2rem; margin: 20px 0;">Your 14-day free trial has started. Let's get you set up!</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%" id="onboarding-progress"></div>
+            </div>
+            <p style="margin: 20px 0;">Complete these steps to unlock the full power of AutoFlow:</p>
+            <div style="text-align: left; margin: 30px 0;">
+                <div style="margin: 15px 0;">✅ Account created</div>
+                <div style="margin: 15px 0;">⏳ Connect your first income source</div>
+                <div style="margin: 15px 0;">⏳ Set your revenue goal</div>
+                <div style="margin: 15px 0;">⏳ Enable automation</div>
+            </div>
+            <button class="btn btn-primary" onclick="closeOnboarding()">Get Started</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <h2>Welcome back! 👋</h2>
+            <p>Here's what's happening with your business today.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-label">Total Revenue (30 days)</div>
+                <div class="stat-value" id="total-revenue">$0</div>
+                <div class="stat-change positive">+12.5% from last month</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-label">Monthly Recurring Revenue</div>
+                <div class="stat-value" id="mrr">$0</div>
+                <div class="stat-change positive">+8.3% growth</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-label">Goal Progress</div>
+                <div class="stat-value" id="goal-progress">0%</div>
+                <div class="stat-change">of $10,000 goal</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-label">Active Income Sources</div>
+                <div class="stat-value" id="income-sources">0</div>
+                <div class="stat-change">Connect more sources</div>
+            </div>
+        </div>
+
+        <!-- Revenue Chart -->
+        <div class="chart-container">
+            <h3>Revenue Over Time</h3>
+            <canvas id="revenueChart"></canvas>
+        </div>
+
+        <!-- Integrations -->
+        <div class="integrations">
+            <h3>Connect Your Income Sources</h3>
+            <div class="integration-grid">
+                <div class="integration-card" onclick="connectIntegration('stripe')">
+                    <div class="integration-icon">💳</div>
+                    <div>Stripe</div>
+                </div>
+                <div class="integration-card" onclick="connectIntegration('paypal')">
+                    <div class="integration-icon">💰</div>
+                    <div>PayPal</div>
+                </div>
+                <div class="integration-card" onclick="connectIntegration('shopify')">
+                    <div class="integration-icon">🛍️</div>
+                    <div>Shopify</div>
+                </div>
+                <div class="integration-card" onclick="connectIntegration('gumroad')">
+                    <div class="integration-icon">📦</div>
+                    <div>Gumroad</div>
+                </div>
+                <div class="integration-card" onclick="connectIntegration('woocommerce')">
+                    <div class="integration-icon">🛒</div>
+                    <div>WooCommerce</div>
+                </div>
+                <div class="integration-card" onclick="connectIntegration('square')">
+                    <div class="integration-icon">⬛</div>
+                    <div>Square</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Tasks -->
+        <div class="tasks-section">
+            <h3>Recommended Actions</h3>
+            <div class="task">
+                <div>
+                    <strong>Connect Stripe</strong>
+                    <p style="color: #666; font-size: 0.9rem;">Start tracking your Stripe revenue automatically</p>
+                </div>
+                <button class="btn btn-primary">Connect</button>
+            </div>
+            <div class="task">
+                <div>
+                    <strong>Set Revenue Goal</strong>
+                    <p style="color: #666; font-size: 0.9rem;">Define your monthly revenue target</p>
+                </div>
+                <button class="btn btn-primary">Set Goal</button>
+            </div>
+            <div class="task">
+                <div>
+                    <strong>Enable AI Insights</strong>
+                    <p style="color: #666; font-size: 0.9rem;">Get personalized recommendations to grow faster</p>
+                </div>
+                <button class="btn btn-primary">Enable</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if coming from checkout
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('welcome') === 'true') {
+            document.getElementById('onboarding-modal').classList.add('active');
+            animateProgress();
+        }
+
+        function animateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                document.getElementById('onboarding-progress').style.width = progress + '%';
+                if (progress >= 25) clearInterval(interval);
+            }, 50);
+        }
+
+        function closeOnboarding() {
+            document.getElementById('onboarding-modal').classList.remove('active');
+        }
+
+        // Initialize revenue chart
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [1200, 1900, 3000, 5000, 6000, 8500],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Simulate loading data
+        function loadDashboardData() {
+            // In production, fetch real data from your API
+            document.getElementById('total-revenue').textContent = '$8,547';
+            document.getElementById('mrr').textContent = '$2,850';
+            document.getElementById('goal-progress').textContent = '85%';
+            document.getElementById('income-sources').textContent = '3';
+        }
+
+        function connectIntegration(platform) {
+            alert(`Connecting to ${platform}... In production, this would open OAuth flow.`);
+            // In production, initiate OAuth flow
+        }
+
+        function logout() {
+            window.location.href = '/';
+        }
+
+        // Load data on page load
+        loadDashboardData();
+    </script>
+</body>
+</html>

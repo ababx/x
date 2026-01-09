@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - AutoFlow</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .checkout-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .checkout-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .checkout-body {
+            padding: 40px;
+        }
+
+        .plan-summary {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .plan-features li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #card-element {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #f44336;
+            margin-top: 15px;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .guarantee {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+
+        .guarantee h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>Complete Your Order</h1>
+            <p>Start your 14-day free trial. No charge today.</p>
+        </div>
+
+        <div class="checkout-body">
+            <div class="plan-summary" id="plan-summary">
+                <div class="plan-name" id="plan-name">Growth Plan</div>
+                <div class="plan-price" id="plan-price">$99<span>/month</span></div>
+                <ul class="plan-features" id="plan-features">
+                    <li>14-day free trial</li>
+                    <li>Cancel anytime</li>
+                </ul>
+            </div>
+
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="card-element">Card Information</label>
+                    <div id="card-element"></div>
+                </div>
+
+                <div class="error-message" id="error-message"></div>
+
+                <button type="submit" class="submit-button" id="submit-button">
+                    Start Free Trial
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Processing your order...</p>
+                </div>
+            </form>
+
+            <div class="guarantee">
+                <h3>🔒 100% Money-Back Guarantee</h3>
+                <p>Not satisfied? Get a full refund within 30 days. No questions asked.</p>
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-badge">🔐 256-bit SSL Encrypted</div>
+                <div class="trust-badge">💳 Secure Payment via Stripe</div>
+                <div class="trust-badge">✅ PCI Compliant</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get plan from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const plan = urlParams.get('plan') || 'growth';
+
+        // Plan configurations
+        const plans = {
+            starter: {
+                name: 'Starter Plan',
+                price: 49,
+                priceId: 'price_starter_monthly', // Replace with actual Stripe price ID
+                features: [
+                    '14-day free trial',
+                    'Up to $10k monthly revenue tracking',
+                    '3 integration connections',
+                    'Basic analytics',
+                    'Email support',
+                    'Cancel anytime'
+                ]
+            },
+            growth: {
+                name: 'Growth Plan',
+                price: 99,
+                priceId: 'price_growth_monthly', // Replace with actual Stripe price ID
+                features: [
+                    '14-day free trial',
+                    'Up to $50k monthly revenue tracking',
+                    'Unlimited integrations',
+                    'Advanced AI insights',
+                    'Smart automation',
+                    'Priority support',
+                    'Cancel anytime'
+                ]
+            },
+            scale: {
+                name: 'Scale Plan',
+                price: 197,
+                priceId: 'price_scale_monthly', // Replace with actual Stripe price ID
+                features: [
+                    '14-day free trial',
+                    'Unlimited revenue tracking',
+                    'Everything in Growth',
+                    'White-label option',
+                    'Team collaboration (5 users)',
+                    'Dedicated account manager',
+                    'API access',
+                    'Cancel anytime'
+                ]
+            }
+        };
+
+        // Update plan display
+        const selectedPlan = plans[plan];
+        document.getElementById('plan-name').textContent = selectedPlan.name;
+        document.getElementById('plan-price').innerHTML = `$${selectedPlan.price}<span>/month</span>`;
+
+        const featuresList = document.getElementById('plan-features');
+        featuresList.innerHTML = selectedPlan.features.map(f => `<li>${f}</li>`).join('');
+
+        // Initialize Stripe
+        const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY'); // Replace with your actual publishable key
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#32325d',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif',
+                    '::placeholder': {
+                        color: '#aab7c4'
+                    }
+                }
+            }
+        });
+        cardElement.mount('#card-element');
+
+        // Handle form submission
+        const form = document.getElementById('checkout-form');
+        const submitButton = document.getElementById('submit-button');
+        const errorMessage = document.getElementById('error-message');
+        const loading = document.getElementById('loading');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitButton.disabled = true;
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+
+            try {
+                // Create payment method
+                const {paymentMethod, error} = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                    billing_details: {
+                        email: email,
+                        name: name
+                    }
+                });
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                // Send to your backend
+                const response = await fetch('/api/create-subscription', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        paymentMethodId: paymentMethod.id,
+                        email: email,
+                        name: name,
+                        plan: plan,
+                        priceId: selectedPlan.priceId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                // Track conversion
+                trackConversion(plan, selectedPlan.price);
+
+                // Redirect to success page
+                window.location.href = '/dashboard.html?welcome=true';
+
+            } catch (err) {
+                errorMessage.textContent = err.message;
+                errorMessage.style.display = 'block';
+                submitButton.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+
+        function trackConversion(plan, price) {
+            // Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'purchase', {
+                    transaction_id: Date.now().toString(),
+                    value: price,
+                    currency: 'USD',
+                    items: [{
+                        item_name: plan + ' subscription',
+                        price: price
+                    }]
+                });
+            }
+
+            // Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: price,
+                    currency: 'USD',
+                    content_name: plan
+                });
+            }
+
+            // Custom tracking
+            fetch('/api/track', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    event: 'purchase',
+                    plan: plan,
+                    price: price,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+    </script>
+</body>
+</html>

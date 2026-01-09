@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From $3k to $10k/Month in 90 Days | AutoFlow</title>
+    <meta name="description" content="Join 2,847 entrepreneurs using AutoFlow to automate their business and scale to $10k/month faster.">
+
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
+    </script>
+
+    <!-- Google Ads Conversion -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-XXXXXXXXX');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .hero .subheadline {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 25px 60px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            animation: none;
+        }
+
+        .social-proof {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .video-section {
+            padding: 80px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .video-placeholder {
+            background: #000;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+        }
+
+        .video-placeholder::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            color: white;
+            background: rgba(255,107,107,0.9);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .results-section {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .results-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .result-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .result-card .name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result-card .result {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin: 15px 0;
+        }
+
+        .urgency-bar {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .countdown {
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 15px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .faq-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .faq-item {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .faq-question {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .guarantee-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .guarantee-badge h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Urgency Bar -->
+    <div class="urgency-bar" id="urgency-bar">
+        🔥 Limited Time Offer: 50% OFF Trial Ends In <span class="countdown" id="countdown">23:59:45</span>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>
+                Stop Losing Money in Spreadsheets.<br>
+                <span class="highlight">Scale to $10k/Month</span> in 90 Days.
+            </h1>
+            <p class="subheadline">
+                The all-in-one dashboard that automates your business so you can focus on growth, not admin work.
+            </p>
+
+            <a href="#pricing" class="cta-button" onclick="trackCTA('hero')">
+                Start Your FREE 14-Day Trial →
+            </a>
+
+            <div class="social-proof">
+                ✅ No credit card required • ✅ Setup in 5 minutes • ✅ Cancel anytime
+            </div>
+
+            <div class="trust-badges">
+                <div class="trust-badge">⭐⭐⭐⭐⭐ 4.9/5 (847 reviews)</div>
+                <div class="trust-badge">2,847+ Active Users</div>
+                <div class="trust-badge">$4.2M+ Revenue Tracked</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <div class="video-section">
+        <div class="container">
+            <h2>Watch How Sarah Went From $3k to $12k/Month</h2>
+            <p style="font-size: 1.3rem; color: #666; margin-bottom: 40px;">
+                In just 8 weeks using AutoFlow (2 min video)
+            </p>
+
+            <div class="video-container">
+                <div class="video-placeholder" onclick="playVideo()">
+                    <!-- Replace with actual video embed -->
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <a href="#pricing" class="cta-button" onclick="trackCTA('video')">
+                    Start Your Free Trial Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section">
+        <div class="container">
+            <h2>Real Results from Real Entrepreneurs</h2>
+            <p style="text-align: center; font-size: 1.3rem; color: #666; margin-bottom: 20px;">
+                These entrepreneurs used AutoFlow to scale their businesses
+            </p>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); margin: 0 auto 20px;"></div>
+                    <div class="name">Sarah Chen</div>
+                    <div style="color: #666; font-size: 0.9rem;">SaaS Founder</div>
+                    <div class="result">$3k → $12k</div>
+                    <p style="font-style: italic; color: #666; margin-top: 15px;">
+                        "AutoFlow helped me identify which income streams were actually profitable. I 3x'd my revenue in 8 weeks."
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f093fb, #f5576c); margin: 0 auto 20px;"></div>
+                    <div class="name">Marcus Rodriguez</div>
+                    <div style="color: #666; font-size: 0.9rem;">E-commerce Owner</div>
+                    <div class="result">$5k → $18k</div>
+                    <p style="font-style: italic; color: #666; margin-top: 15px;">
+                        "The automation alone saves me 15 hours per week. I reinvested that time into marketing and tripled my sales."
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #4facfe, #00f2fe); margin: 0 auto 20px;"></div>
+                    <div class="name">Jessica Park</div>
+                    <div style="color: #666; font-size: 0.9rem;">Course Creator</div>
+                    <div class="result">$2k → $15k</div>
+                    <p style="font-style: italic; color: #666; margin-top: 15px;">
+                        "The AI insights told me exactly which products to focus on. My profit margin doubled overnight."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">How quickly can I get started?</div>
+                <div class="faq-answer">You can be up and running in less than 5 minutes. Just sign up, connect your payment processor (Stripe, PayPal, etc.), and you'll immediately see your revenue data.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do I need technical skills?</div>
+                <div class="faq-answer">Not at all! AutoFlow is designed for entrepreneurs, not developers. Everything is point-and-click. If you can use Gmail, you can use AutoFlow.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if I don't hit $10k/month?</div>
+                <div class="faq-answer">We're so confident in AutoFlow that we offer a 30-day money-back guarantee. If you're not satisfied for any reason, just let us know and we'll refund you in full.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I cancel anytime?</div>
+                <div class="faq-answer">Yes! Cancel anytime with one click. No contracts, no commitments. We only want customers who love AutoFlow.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="final-cta" id="pricing">
+        <div class="container">
+            <h2 style="color: white; font-size: 3rem;">Ready to Scale to $10k/Month?</h2>
+            <p style="font-size: 1.5rem; margin: 30px 0;">Join 2,847 entrepreneurs already using AutoFlow</p>
+
+            <a href="checkout.html?plan=growth&source=ads" class="cta-button" onclick="trackCTA('final'); fbq('track', 'Lead');">
+                Start Your FREE 14-Day Trial Now
+            </a>
+
+            <div class="guarantee-badge">
+                <h3>🔒 100% Money-Back Guarantee</h3>
+                <p style="font-size: 1.2rem;">Try it risk-free for 30 days. If you're not satisfied, we'll refund every penny.</p>
+            </div>
+
+            <div style="margin-top: 40px; font-size: 1.1rem;">
+                No credit card required • Cancel anytime • Setup in 5 minutes
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+
+            const diff = midnight - now;
+            const hours = Math.floor(diff / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+
+            document.getElementById('countdown').textContent =
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Track CTA clicks
+        function trackCTA(location) {
+            // Google Ads conversion
+            gtag('event', 'conversion', {
+                'send_to': 'AW-XXXXXXXXX/XXXXXX',
+                'value': 99.0,
+                'currency': 'USD'
+            });
+
+            // Facebook Pixel
+            fbq('track', 'Lead', {
+                content_name: 'Trial Signup',
+                source: location
+            });
+
+            // Custom tracking
+            fetch('/api/track', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    event: 'cta_click',
+                    location: location,
+                    source: 'ads_landing',
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+
+        function playVideo() {
+            alert('Video player would load here. Integrate with YouTube, Vimeo, or Wistia.');
+            fbq('track', 'ViewContent', {
+                content_name: 'Demo Video',
+                content_type: 'video'
+            });
+        }
+
+        // Track scroll depth
+        let maxScroll = 0;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > maxScroll) {
+                maxScroll = Math.floor(scrollPercent / 25) * 25;
+                if ([25, 50, 75, 100].includes(maxScroll)) {
+                    gtag('event', 'scroll_depth', {
+                        'event_category': 'engagement',
+                        'event_label': maxScroll + '%'
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

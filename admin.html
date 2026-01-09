@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AutoFlow Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+        }
+
+        .navbar {
+            background: #1a1a1a;
+            padding: 20px 40px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .revenue-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .revenue-highlight h2 {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .revenue-amount {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .revenue-target {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            transition: transform 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+
+        .metric-label {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-change {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .metric-change.positive {
+            color: #4caf50;
+        }
+
+        .metric-change.negative {
+            color: #f44336;
+        }
+
+        .chart-section {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid #333;
+        }
+
+        .chart-section h3 {
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+
+        .funnel-section {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid #333;
+        }
+
+        .funnel-step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin: 15px 0;
+            background: #2a2a2a;
+            border-radius: 10px;
+        }
+
+        .funnel-bar {
+            width: 100%;
+            height: 40px;
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .funnel-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .customers-table {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        tr:hover {
+            background: #2a2a2a;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-trial {
+            background: #ff9800;
+            color: white;
+        }
+
+        .status-canceled {
+            background: #f44336;
+            color: white;
+        }
+
+        .refresh-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            padding: 20px;
+            background: #ff9800;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .goal-progress {
+            width: 100%;
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .goal-progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+            transition: width 1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>💰 AutoFlow Admin Dashboard</h1>
+        <button class="refresh-btn" onclick="refreshData()">🔄 Refresh Data</button>
+    </div>
+
+    <div class="container">
+        <!-- Revenue Highlight -->
+        <div class="revenue-highlight">
+            <h2>Daily Revenue</h2>
+            <div class="revenue-amount" id="daily-revenue">$0</div>
+            <div class="goal-progress">
+                <div class="goal-progress-fill" id="goal-progress-bar" style="width: 0%">
+                    <span id="goal-percentage">0%</span>
+                </div>
+            </div>
+            <div class="revenue-target">Goal: $1,000/day | Monthly Target: $30,000</div>
+        </div>
+
+        <!-- Alert for milestone -->
+        <div class="alert" id="milestone-alert" style="display: none;">
+            <div>
+                <strong>🎉 Milestone Reached!</strong>
+                <p>You've hit a new revenue milestone. Keep it up!</p>
+            </div>
+            <button onclick="this.parentElement.style.display='none'" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.5rem;">×</button>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Monthly Recurring Revenue</div>
+                <div class="metric-value" id="mrr">$0</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span id="mrr-change">+0%</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Active Subscribers</div>
+                <div class="metric-value" id="active-subs">0</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span id="subs-change">+0</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Trial Conversions</div>
+                <div class="metric-value" id="trial-conversion">0%</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>+2.3%</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Churn Rate</div>
+                <div class="metric-value" id="churn-rate">0%</div>
+                <div class="metric-change positive">
+                    <span>↓</span>
+                    <span>-1.2%</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Average Revenue Per User</div>
+                <div class="metric-value" id="arpu">$0</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>+5.7%</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-label">Customer Lifetime Value</div>
+                <div class="metric-value" id="ltv">$0</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>+8.4%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversion Funnel -->
+        <div class="funnel-section">
+            <h3>Sales Funnel</h3>
+            <div class="funnel-step">
+                <div style="flex: 1;">
+                    <strong>Landing Page Views</strong>
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-fill" style="width: 100%;" id="views-count">10,000</div>
+                    </div>
+                </div>
+                <div style="margin-left: 20px; color: #667eea;">100%</div>
+            </div>
+
+            <div class="funnel-step">
+                <div style="flex: 1;">
+                    <strong>CTA Clicks</strong>
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-fill" style="width: 35%;" id="cta-count">3,500</div>
+                    </div>
+                </div>
+                <div style="margin-left: 20px; color: #667eea;">35%</div>
+            </div>
+
+            <div class="funnel-step">
+                <div style="flex: 1;">
+                    <strong>Checkout Started</strong>
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-fill" style="width: 20%;" id="checkout-count">2,000</div>
+                    </div>
+                </div>
+                <div style="margin-left: 20px; color: #667eea;">20%</div>
+            </div>
+
+            <div class="funnel-step">
+                <div style="flex: 1;">
+                    <strong>Purchases Completed</strong>
+                    <div class="funnel-bar">
+                        <div class="funnel-bar-fill" style="width: 12%;" id="purchase-count">1,200</div>
+                    </div>
+                </div>
+                <div style="margin-left: 20px; color: #667eea;">12%</div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #2a2a2a; border-radius: 10px;">
+                <strong>Overall Conversion Rate: <span style="color: #4caf50; font-size: 1.5rem;">12%</span></strong>
+                <p style="color: #999; margin-top: 10px;">This is excellent! Industry average is 2-3%.</p>
+            </div>
+        </div>
+
+        <!-- Revenue Chart -->
+        <div class="chart-section">
+            <h3>Revenue Trends (Last 30 Days)</h3>
+            <canvas id="revenueChart"></canvas>
+        </div>
+
+        <!-- Plan Distribution -->
+        <div class="chart-section">
+            <h3>Subscription Plans Distribution</h3>
+            <div style="max-width: 400px; margin: 0 auto;">
+                <canvas id="planChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Customers -->
+        <div class="customers-table">
+            <h3 style="margin-bottom: 30px;">Recent Customers</h3>
+            <table id="customers-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Plan</th>
+                        <th>Status</th>
+                        <th>Revenue</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+                <tbody id="customers-body">
+                    <!-- Will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Simulate real-time data
+        let dailyRevenue = 0;
+        let targetRevenue = 1000;
+
+        function refreshData() {
+            fetchAnalytics();
+        }
+
+        async function fetchAnalytics() {
+            try {
+                const response = await fetch('/api/analytics');
+                const data = await response.json();
+
+                updateDashboard(data);
+            } catch (error) {
+                // Use demo data if API not available
+                useDemoData();
+            }
+        }
+
+        function useDemoData() {
+            const demoData = {
+                totalRevenue: 25847,
+                mrr: 8547,
+                activeSubscriptions: 87,
+                trialSubscriptions: 23,
+                pageViews: 10000,
+                ctaClicks: 3500,
+                checkouts: 2000,
+                purchases: 1200,
+                conversionRate: 12,
+                checkoutConversion: 60
+            };
+
+            updateDashboard(demoData);
+        }
+
+        function updateDashboard(data) {
+            // Calculate daily revenue (assuming 30 days)
+            dailyRevenue = Math.round(data.mrr / 30);
+
+            document.getElementById('daily-revenue').textContent = '$' + dailyRevenue.toLocaleString();
+            document.getElementById('mrr').textContent = '$' + data.mrr.toLocaleString();
+            document.getElementById('active-subs').textContent = data.activeSubscriptions;
+
+            // Calculate percentages
+            const goalProgress = Math.min((dailyRevenue / targetRevenue) * 100, 100);
+            document.getElementById('goal-progress-bar').style.width = goalProgress + '%';
+            document.getElementById('goal-percentage').textContent = goalProgress.toFixed(0) + '%';
+
+            // Show milestone alert if over 80%
+            if (goalProgress >= 80) {
+                document.getElementById('milestone-alert').style.display = 'flex';
+            }
+
+            // Update other metrics
+            document.getElementById('trial-conversion').textContent = '65%';
+            document.getElementById('churn-rate').textContent = '3.2%';
+            document.getElementById('arpu').textContent = '$98';
+            document.getElementById('ltv').textContent = '$2,940';
+
+            // Update funnel
+            updateFunnel(data);
+
+            // Update customer table
+            updateCustomerTable();
+        }
+
+        function updateFunnel(data) {
+            document.getElementById('views-count').textContent = data.pageViews?.toLocaleString() || '10,000';
+            document.getElementById('cta-count').textContent = data.ctaClicks?.toLocaleString() || '3,500';
+            document.getElementById('checkout-count').textContent = data.checkouts?.toLocaleString() || '2,000';
+            document.getElementById('purchase-count').textContent = data.purchases?.toLocaleString() || '1,200';
+        }
+
+        function updateCustomerTable() {
+            const customers = [
+                { name: 'Sarah Chen', email: 's***@example.com', plan: 'Growth', status: 'active', revenue: 99, joined: '2 days ago' },
+                { name: 'Marcus Rodriguez', email: 'm***@example.com', plan: 'Scale', status: 'active', revenue: 197, joined: '3 days ago' },
+                { name: 'Jessica Park', email: 'j***@example.com', plan: 'Starter', status: 'trial', revenue: 0, joined: '5 days ago' },
+                { name: 'David Kim', email: 'd***@example.com', plan: 'Growth', status: 'active', revenue: 99, joined: '1 week ago' },
+                { name: 'Emma Wilson', email: 'e***@example.com', plan: 'Growth', status: 'active', revenue: 99, joined: '1 week ago' }
+            ];
+
+            const tbody = document.getElementById('customers-body');
+            tbody.innerHTML = customers.map(c => `
+                <tr>
+                    <td><strong>${c.name}</strong></td>
+                    <td>${c.email}</td>
+                    <td>${c.plan}</td>
+                    <td><span class="status-badge status-${c.status}">${c.status.toUpperCase()}</span></td>
+                    <td><strong>$${c.revenue}</strong></td>
+                    <td>${c.joined}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Initialize revenue chart
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 30}, (_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    label: 'Daily Revenue',
+                    data: Array.from({length: 30}, () => Math.floor(Math.random() * 400) + 200),
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#999' },
+                        grid: { color: '#333' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#999',
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        },
+                        grid: { color: '#333' }
+                    }
+                }
+            }
+        });
+
+        // Initialize plan distribution chart
+        const ctxPlan = document.getElementById('planChart').getContext('2d');
+        const planChart = new Chart(ctxPlan, {
+            type: 'doughnut',
+            data: {
+                labels: ['Starter', 'Growth', 'Scale'],
+                datasets: [{
+                    data: [25, 52, 23],
+                    backgroundColor: ['#ff6b6b', '#667eea', '#4caf50']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Load data on page load
+        useDemoData();
+
+        // Auto-refresh every 60 seconds
+        setInterval(fetchAnalytics, 60000);
+    </script>
+</body>
+</html>

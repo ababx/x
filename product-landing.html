@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFlow - Automate Your Business & Scale to $10k/month</title>
+    <meta name="description" content="The all-in-one dashboard that helps entrepreneurs automate income streams, track revenue, and scale to $10k/month faster.">
+
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero .subheadline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-dark {
+            background: #f8f9fa;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.featured {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>Automate Your Business.<br>Scale to $10k/Month.</h1>
+            <p class="subheadline">The all-in-one dashboard that tracks income, automates tasks, and gives you AI-powered insights to grow faster.</p>
+            <a href="#pricing" class="cta-button" onclick="trackCTAClick('hero')">Start Your 14-Day Free Trial</a>
+            <p style="margin-top: 20px; opacity: 0.9;">No credit card required • Setup in 5 minutes • Cancel anytime</p>
+        </div>
+    </div>
+
+    <!-- Social Proof -->
+    <div class="section">
+        <div class="container">
+            <div class="stats">
+                <div>
+                    <div class="stat-number">2,847</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div>
+                    <div class="stat-number">$4.2M</div>
+                    <div class="stat-label">Revenue Tracked</div>
+                </div>
+                <div>
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Tasks Automated</div>
+                </div>
+                <div>
+                    <div class="stat-number">4.9/5</div>
+                    <div class="stat-label">User Rating</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem/Solution -->
+    <div class="section section-dark">
+        <div class="container">
+            <h2>Stop Juggling 10 Tools. Start Growing.</h2>
+            <p class="center" style="font-size: 1.2rem; margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                You're using Stripe for payments, Google Sheets for tracking, Zapier for automation,
+                Google Analytics for metrics... and you're STILL losing money in the cracks.
+            </p>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">💰</div>
+                    <h3>Unified Revenue Tracking</h3>
+                    <p>Connect all your income streams in one dashboard. See real-time revenue across Stripe, PayPal, Gumroad, and more.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Smart Automation</h3>
+                    <p>Automate repetitive tasks with AI. Auto-respond to customers, generate reports, and trigger actions based on your metrics.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>AI-Powered Insights</h3>
+                    <p>Get actionable recommendations to increase revenue. Our AI analyzes your data and tells you exactly what to do next.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h3>Growth Analytics</h3>
+                    <p>Track MRR, churn, LTV, and 50+ metrics that actually matter. Know your numbers without a finance degree.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>One-Click Integrations</h3>
+                    <p>Connect with Stripe, PayPal, Shopify, WooCommerce, ConvertKit, and 100+ platforms in seconds.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Goal Tracking</h3>
+                    <p>Set revenue goals and get daily progress updates. Stay motivated with milestone celebrations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="section">
+        <div class="container">
+            <h2>What Entrepreneurs Are Saying</h2>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"AutoFlow helped me go from $3k/month to $12k/month in just 8 weeks. The automation alone saves me 15 hours per week."</p>
+                <p class="testimonial-author">- Sarah Chen, SaaS Founder</p>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"I was losing track of revenue across 5 different platforms. Now everything's in one place and I finally understand my business."</p>
+                <p class="testimonial-author">- Marcus Rodriguez, E-commerce Owner</p>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"The AI insights are game-changing. It told me to focus on my high-ticket offer and I doubled my profit margin."</p>
+                <p class="testimonial-author">- Jessica Park, Course Creator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div class="section section-dark" id="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <p class="center" style="font-size: 1.2rem; margin-bottom: 30px;">Start free. Upgrade when you're ready to scale.</p>
+
+            <div class="pricing">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$49<span>/mo</span></div>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Up to $10k monthly revenue</li>
+                        <li>✓ 3 integration connections</li>
+                        <li>✓ Basic analytics</li>
+                        <li>✓ Email support</li>
+                        <li>✓ Mobile app access</li>
+                    </ul>
+                    <a href="checkout.html?plan=starter" class="cta-button" style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem;" onclick="trackCheckout('starter')">Start Free Trial</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3>Growth</h3>
+                    <div class="price">$99<span>/mo</span></div>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Up to $50k monthly revenue</li>
+                        <li>✓ Unlimited integrations</li>
+                        <li>✓ Advanced AI insights</li>
+                        <li>✓ Smart automation</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Custom reports</li>
+                    </ul>
+                    <a href="checkout.html?plan=growth" class="cta-button" style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem; background: white; color: #667eea;" onclick="trackCheckout('growth')">Start Free Trial</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Scale</h3>
+                    <div class="price">$197<span>/mo</span></div>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Unlimited revenue tracking</li>
+                        <li>✓ Everything in Growth</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Team collaboration (5 users)</li>
+                        <li>✓ Dedicated account manager</li>
+                        <li>✓ API access</li>
+                    </ul>
+                    <a href="checkout.html?plan=scale" class="cta-button" style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem;" onclick="trackCheckout('scale')">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="container center">
+            <h2 style="color: white;">Ready to Scale Your Business?</h2>
+            <p style="font-size: 1.3rem; margin: 30px 0;">Join 2,847 entrepreneurs already using AutoFlow to grow faster.</p>
+            <a href="#pricing" class="cta-button" style="background: white; color: #667eea;">Start Your Free Trial Now</a>
+        </div>
+    </div>
+
+    <!-- Analytics Tracking -->
+    <script>
+        function trackCTAClick(location) {
+            // Google Analytics
+            gtag('event', 'cta_click', {
+                'event_category': 'engagement',
+                'event_label': location
+            });
+
+            // Facebook Pixel
+            fbq('track', 'Lead');
+
+            // Custom tracking
+            fetch('/api/track', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    event: 'cta_click',
+                    location: location,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+
+        function trackCheckout(plan) {
+            gtag('event', 'begin_checkout', {
+                'event_category': 'ecommerce',
+                'event_label': plan
+            });
+
+            fbq('track', 'InitiateCheckout', {
+                content_name: plan,
+                currency: 'USD'
+            });
+
+            fetch('/api/track', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    event: 'checkout_start',
+                    plan: plan,
+                    timestamp: new Date().toISOString()
+                })
+            });
+        }
+
+        // Track time on page
+        window.addEventListener('load', function() {
+            let startTime = Date.now();
+            window.addEventListener('beforeunload', function() {
+                let timeOnPage = (Date.now() - startTime) / 1000;
+                navigator.sendBeacon('/api/track', JSON.stringify({
+                    event: 'time_on_page',
+                    seconds: timeOnPage
+                }));
+            });
+        });
+    </script>
+</body>
+</html>
