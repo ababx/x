@@ -16,4 +16,5 @@ env/
 .coverage
 htmlcov/
 smart-footrest/config/calibration.yaml
+smart-footrest/simulation_output.png
 .DS_Store
