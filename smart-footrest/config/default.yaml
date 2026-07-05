@@ -1,0 +1,42 @@
+camera:
+  device_index: 0
+  width: 640
+  height: 480
+  fps: 30
+  use_picamera: false
+
+detection:
+  min_confidence: 0.5
+  min_tracking_confidence: 0.5
+  seated_angle_threshold: 120.0  # degrees — hip-knee-ankle angle below this = seated
+  foot_present_confidence: 0.4
+
+tracking:
+  smoothing_alpha: 0.3  # EMA weight (0=full smooth, 1=no smooth)
+  dropout_hold_frames: 15  # hold last position this many frames after losing detection
+  pixels_per_meter: 500.0  # rough calibration — pixels in frame per meter on floor
+
+motion:
+  kp: 1.2  # proportional gain
+  kd: 0.3  # derivative gain
+  max_speed: 0.1  # m/s
+  min_speed: 0.01  # m/s — deadband below this
+  acceleration_limit: 0.2  # m/s^2
+  position_tolerance: 0.03  # meters — "close enough" to target
+  adjustment_threshold: 0.08  # meters — movement beyond this triggers ADJUSTING
+
+safety:
+  geofence_x: 1.0  # meters from home in x
+  geofence_y: 1.0  # meters from home in y
+  watchdog_timeout: 0.5  # seconds — kill motors if loop stalls
+  motor_command_timeout: 2.0  # seconds — max duration per command
+  max_speed_hard_limit: 0.15  # m/s — absolute cap, overrides motion.max_speed
+
+control:
+  loop_rate_hz: 20  # main control loop frequency
+  stable_detection_frames: 10  # frames of stable detection before moving
+  person_lost_frames: 30  # frames without person before retracting
+
+logging:
+  level: INFO
+  file: null  # set to a path to log to file

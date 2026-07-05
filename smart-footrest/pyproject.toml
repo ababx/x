@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-footrest"
+version = "0.1.0"
+description = "A smart footrest that uses computer vision to position itself under your feet"
+requires-python = ">=3.11"
+dependencies = [
+    "mediapipe>=0.10.9",
+    "opencv-python>=4.9.0",
+    "numpy>=1.26.0",
+    "pyyaml>=6.0.1",
+]
+
+[project.optional-dependencies]
+rpi = [
+    "gpiozero>=2.0",
+    "picamera2>=0.3.17",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+]
+sim = [
+    "matplotlib>=3.8.0",
+]
+
+[project.scripts]
+smart-footrest = "smart_footrest.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
